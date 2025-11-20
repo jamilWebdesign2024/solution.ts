@@ -7,18 +7,10 @@ const formatValue = (value: AllType): AllType => {
     else if (typeof value === 'number') {
         return value * 10;
     }
-    else {
-        if (value === true) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    else { return !value
     }
 
-    return value;
 }
-
 
 
 
@@ -34,10 +26,6 @@ const getLength = (input: string | any[]): number => {
 
 
 
-
-
-// Problem 3
-
 class Person {
     name: string;
     age: number;
@@ -50,14 +38,7 @@ class Person {
     }
 }
 
-const jishan = new Person("Jamil", 22)
-const rakib = new Person("Rakib", 22)
 
-jishan.getDetails()
-rakib.getDetails()
-
-
-// Problem 4:
 
 type Products = {
     title: string,
@@ -69,7 +50,8 @@ const filterByRating = (itmes: Product): Product => {
     return itmes.filter((item) => item.rating >= 4)
 }
 
-// Problem 5:
+
+
 type ActiveUsers = {
     id: number,
     name: string,
@@ -83,8 +65,6 @@ const filterActiveUsers = (users: ActiveUser): ActiveUser => {
 }
 
 
-
-// Problem 6
 
 interface Book {
     title: string,
@@ -100,38 +80,49 @@ const printBookDetails = (bookInfo: Book): void => {
 }
 
 
-printBookDetails({
-    title: "Physics",
-    author: "Ainstain",
-    publishedYear: 1880,
-    isAvailable: true
-})
 
+type ArrayofNumber = (string | number)[];
 
-// Problem 7
+const getUniqueValues = (a: ArrayofNumber, b: ArrayofNumber): ArrayofNumber => {
+    let newArray: ArrayofNumber = [];
 
-type ArrayofNumber = number[];
-
-const getUniqueValues = (a: ArrayofNumber, b: ArrayofNumber): number[] => {
-    let newArray: number[] = [];
-
-    b.forEach((element) => {
-        if (!a.includes(element)) {
-            newArray.push(element);
+    for(const value of a){
+        if(!newArray.includes(value)){
+            newArray.push(value)
         }
-    });
-    return newArray;
+    }
+    for(const value of b){
+        if(!newArray.includes(value)){
+            newArray.push(value)
+        }
+    }
+
+    return newArray
 }
 
-const array1 = [1, 2, 3, 4, 5];
-const array2 = [3, 4, 5, 6, 7];
-console.log(getUniqueValues(array1, array2));
 
 
+interface PriceList {
+    name: string;
+    price: number;
+    quantity: number;
+    discount?: number;
+}
 
+type PriceListArr = PriceList[]
 
+const calculateTotalPrice=(products: PriceListArr):number=>{
+    if(products.length === 1) return 0
 
+    return products.reduce((total, product)=>{
+        const inTotalPrice = product.price * product.quantity;
+        
+        const discountPrice = product.discount !== undefined ? inTotalPrice -(inTotalPrice * product.discount)/100 : inTotalPrice;
+        
+       return total + discountPrice;
 
+    }, 0)
+}
 
 
 
