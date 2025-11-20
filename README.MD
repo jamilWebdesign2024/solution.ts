@@ -1,155 +1,148 @@
+📝 Blog Post
 
-📝 **Blog Post**
+১. TypeScript এ Interface এবং Type-এর মধ্যে পার্থক্য
 
----
+TypeScript এ Interface এবং Type দুটোই object বা structure-এর ধরন নির্ধারণে ব্যবহৃত হয়। তবে এদের ক্ষমতা ও ব্যবহার ক্ষেত্র আলাদা।
 
-## ১. TypeScript এ Interface এবং Type এর পার্থক্য
+Interface:
 
-TypeScript এ **Interface** এবং **Type**—দুটোই object বা structure-এর ধরন নির্ধারণ করতে ব্যবহার হয়। তবে এদের উদ্দেশ্য ও ক্ষমতা আলাদা।  
+Class বা object-এর shape তৈরি করতে ব্যবহার হয়।
 
-**Interface:**  
-- Object বা class-এর shape নির্ধারণে ব্যবহার হয়।  
-- পরবর্তীতে সহজে **extend** বা **implement** করা যায়।  
-- সাধারণত class-এর সাথে বেশি ব্যবহার হয়।  
+সহজেই extend বা অন্য class/Interface দ্বারা implement করা যায়।
 
-```ts
-interface User {
-  name: string;
-  age: number;
+Class-এর সাথে যুক্ত হয়ে structure maintain করতে উপযুক্ত।
+
+interface Person {
+  firstName: string;
+  lastName: string;
 }
+
+
 Type Alias:
 
 আরও flexible।
 
-শুধু object নয়, union, intersection, tuple, primitive alias তৈরিতেও ব্যবহার হয়।
+শুধু object নয়, union, intersection, tuple, বা primitive type-ও define করা যায়।
 
-ts
-Copy code
-type ID = string | number;
-type UserWithRole = User & { role: 'admin' | 'user' };
-পার্থক্য সংক্ষেপে:
+type Status = 'active' | 'inactive';
+type Employee = Person & { status: Status };
+
+
+মূল পার্থক্য:
 
 বিষয়	Interface	Type
-Extending	সহজ	করা যায়, সিনট্যাক্স ভিন্ন
+Extending	সহজ	সম্ভব, তবে syntax ভিন্ন
 Union support	নেই	আছে
 Declaration Merge	সম্ভব	সম্ভব নয়
-প্রধান ব্যবহার	Object/Class structure	Flexible type design
+প্রধান ব্যবহার	Object/Class structure	Complex/Flexible type design
 
 উপসংহার:
 
-Class বা object structure-এর জন্য Interface।
+Object বা class structure এর জন্য Interface বেশি সুবিধাজনক।
 
-Flexible বা complex type design-এর জন্য Type বেশি সুবিধাজনক।
+Flexible বা combination type design এর জন্য Type Alias ভালো।
 
-২. TypeScript এ keyof keyword ব্যবহার
-ব্যবহার:
+২. TypeScript এ any, unknown এবং never টাইপ
 
-Object type-এর সকল property নামকে type হিসেবে বের করতে ব্যবহার হয়।
+any — সবচেয়ে loose টাইপ
 
-Type-safe কোডে সাহায্য করে।
+যেকোনো value ধরতে পারে।
 
-উদাহরণ:
+TypeScript এর type checking এ bypass করে।
 
-ts
-Copy code
-type User = {
-  name: string;
-  age: number;
-};
+let randomValue: any = 100;
+randomValue = 'Hi';
+randomValue = false;
 
-type UserKeys = keyof User; 
-// UserKeys = "name" | "age"
 
-const key: UserKeys = "name"; // সঠিক
-// const wrongKey: UserKeys = "email"; // compile-time error
-৩. TypeScript এ any, unknown, এবং never টাইপের পার্থক্য
-any — সর্বাধিক শিথিল টাইপ
-
-যেকোনো value রাখা যায়।
-
-TypeScript type-checking এ bypass করে।
-
-ts
-Copy code
-let value: any = 42;
-value = 'Hello';
-value = true;
-➡️ অসতর্ক ব্যবহারে বাগ তৈরি হতে পারে।
+➡️ অসতর্ক ব্যবহারে runtime error হতে পারে।
 
 unknown — নিরাপদ any
 
-Value ধরতে পারে, কিন্তু ব্যবহার করার আগে type check করা প্রয়োজন।
+Value ধরতে পারে, কিন্তু ব্যবহার করার আগে type যাচাই আবশ্যক।
 
-ts
-Copy code
-let data: unknown = 'World';
+let input: unknown = 'Hello World';
 
-if (typeof data === 'string') {
-  console.log(data.toUpperCase());
+if (typeof input === 'string') {
+  console.log(input.toUpperCase());
 }
-➡️ any-এর তুলনায় বেশি নিরাপদ।
 
-never — কোনো value রাখে না
 
-Function যা কখনো return করে না, যেমন error throw করা বা infinite loop।
+➡️ more type-safe এবং error কম হয়।
 
-ts
-Copy code
-function throwError(msg: string): never {
-  throw new Error(msg);
+never — কোনো value ধারণ করে না
+
+এমন function যা কখনো return করে না, যেমন error throw করা বা infinite loop।
+
+function fail(message: string): never {
+  throw new Error(message);
 }
-➡️ খুব strict এবং rare ব্যবহৃত হয়।
+
+
+➡️ strict এবং rare ব্যবহার হয়।
 
 পার্থক্য সংক্ষেপে:
 
 টাইপ	ব্যাখ্যা
-any	যেকোনো value; type-checking বন্ধ
-unknown	যেকোনো value; ব্যবহার আগে type-checking প্রয়োজন
-never	কখনো return করে না; কোনো value থাকে না
+any	যেকোনো value; type-checking বাদ দেয়
+unknown	যেকোনো value; ব্যবহার আগে type যাচাই প্রয়োজন
+never	কোনো value থাকে না; function return হয় না
+৩. keyof keyword ব্যবহার
 
-৪. TypeScript এ enums ব্যবহার
 ব্যবহার:
 
-Named constants group করতে enum ব্যবহার হয়।
+Object type-এর সকল property নাম type হিসেবে বের করতে ব্যবহৃত হয়।
+
+Type-safe কোড লিখতে সাহায্য করে।
+
+type Product = {
+  title: string;
+  price: number;
+};
+
+type ProductKeys = keyof Product; 
+// ProductKeys = "title" | "price"
+
+const key: ProductKeys = "title"; // সঠিক
+// const wrongKey: ProductKeys = "id"; // compile-time error
+
+৪. TypeScript এ enums ব্যবহার
+
+ব্যবহার:
+
+Fixed set of constants group করতে ব্যবহার হয়।
 
 Numeric বা string enum হতে পারে।
 
-উদাহরণ:
-
-ts
-Copy code
-// Numeric enum
-enum Direction {
-  Up = 1,
-  Down,
-  Left,
-  Right
+// Numeric Enum
+enum Weekday {
+  Monday = 1,
+  Tuesday,
+  Wednesday
 }
 
-// String enum
-enum Color {
-  Red = "RED",
-  Green = "GREEN",
-  Blue = "BLUE"
+// String Enum
+enum Role {
+  Admin = "ADMIN",
+  User = "USER",
+  Guest = "GUEST"
 }
-৫. Union এবং Intersection Type উদাহরণ
+
+৫. Union এবং Intersection Type
+
 Union (|): value একাধিক type হতে পারে।
 
-Intersection (&): multiple type একত্রিত করে।
+Intersection (&): একাধিক type একত্রিত করে নতুন type তৈরি করে।
 
-উদাহরণ:
-
-ts
-Copy code
-type A = { name: string };
-type B = { age: number };
+type Name = { name: string };
+type Age = { age: number };
 
 // Intersection
-type AB = A & B;
-const person: AB = { name: "Jamil", age: 25 };
+type PersonDetails = Name & Age;
+const person: PersonDetails = { name: "Jamil", age: 25 };
 
 // Union
-type ID = number | string;
-let myId: ID;
-myId = 123;
-myId = "ABC123";
+type Identifier = number | string;
+let id: Identifier;
+id = 101;
+id = "ABC101";
