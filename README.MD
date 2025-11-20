@@ -1,33 +1,32 @@
-📝 Blog Post
 
-১. TypeScript এ Interface এবং Type এর পার্থক্য
+📝 **Blog Post**
 
-TypeScript এ Interface এবং Type—দুটোই object বা structure-এর ধরন নির্ধারণ করতে ব্যবহার হয়। তবে এদের উদ্দেশ্য ও ক্ষমতা আলাদা।
+---
 
-Interface:
+## ১. TypeScript এ Interface এবং Type এর পার্থক্য
 
-Object বা class-এর shape নির্ধারণে ব্যবহার হয়।
+TypeScript এ **Interface** এবং **Type**—দুটোই object বা structure-এর ধরন নির্ধারণ করতে ব্যবহার হয়। তবে এদের উদ্দেশ্য ও ক্ষমতা আলাদা।  
 
-পরবর্তীতে সহজে extend বা implement করা যায়।
+**Interface:**  
+- Object বা class-এর shape নির্ধারণে ব্যবহার হয়।  
+- পরবর্তীতে সহজে **extend** বা **implement** করা যায়।  
+- সাধারণত class-এর সাথে বেশি ব্যবহার হয়।  
 
-সাধারণত class-এর সাথে বেশি ব্যবহার হয়।
-
+```ts
 interface User {
   name: string;
   age: number;
 }
-
-
 Type Alias:
 
 আরও flexible।
 
 শুধু object নয়, union, intersection, tuple, primitive alias তৈরিতেও ব্যবহার হয়।
 
+ts
+Copy code
 type ID = string | number;
 type UserWithRole = User & { role: 'admin' | 'user' };
-
-
 পার্থক্য সংক্ষেপে:
 
 বিষয়	Interface	Type
@@ -43,7 +42,6 @@ Class বা object structure-এর জন্য Interface।
 Flexible বা complex type design-এর জন্য Type বেশি সুবিধাজনক।
 
 ২. TypeScript এ keyof keyword ব্যবহার
-
 ব্যবহার:
 
 Object type-এর সকল property নামকে type হিসেবে বের করতে ব্যবহার হয়।
@@ -52,6 +50,8 @@ Type-safe কোডে সাহায্য করে।
 
 উদাহরণ:
 
+ts
+Copy code
 type User = {
   name: string;
   age: number;
@@ -62,44 +62,42 @@ type UserKeys = keyof User;
 
 const key: UserKeys = "name"; // সঠিক
 // const wrongKey: UserKeys = "email"; // compile-time error
-
 ৩. TypeScript এ any, unknown, এবং never টাইপের পার্থক্য
-
 any — সর্বাধিক শিথিল টাইপ
 
 যেকোনো value রাখা যায়।
 
 TypeScript type-checking এ bypass করে।
 
+ts
+Copy code
 let value: any = 42;
 value = 'Hello';
 value = true;
-
-
 ➡️ অসতর্ক ব্যবহারে বাগ তৈরি হতে পারে।
 
 unknown — নিরাপদ any
 
 Value ধরতে পারে, কিন্তু ব্যবহার করার আগে type check করা প্রয়োজন।
 
+ts
+Copy code
 let data: unknown = 'World';
 
 if (typeof data === 'string') {
   console.log(data.toUpperCase());
 }
-
-
 ➡️ any-এর তুলনায় বেশি নিরাপদ।
 
 never — কোনো value রাখে না
 
 Function যা কখনো return করে না, যেমন error throw করা বা infinite loop।
 
+ts
+Copy code
 function throwError(msg: string): never {
   throw new Error(msg);
 }
-
-
 ➡️ খুব strict এবং rare ব্যবহৃত হয়।
 
 পার্থক্য সংক্ষেপে:
@@ -108,8 +106,8 @@ function throwError(msg: string): never {
 any	যেকোনো value; type-checking বন্ধ
 unknown	যেকোনো value; ব্যবহার আগে type-checking প্রয়োজন
 never	কখনো return করে না; কোনো value থাকে না
-৪. TypeScript এ enums ব্যবহার
 
+৪. TypeScript এ enums ব্যবহার
 ব্যবহার:
 
 Named constants group করতে enum ব্যবহার হয়।
@@ -118,6 +116,8 @@ Numeric বা string enum হতে পারে।
 
 উদাহরণ:
 
+ts
+Copy code
 // Numeric enum
 enum Direction {
   Up = 1,
@@ -132,15 +132,15 @@ enum Color {
   Green = "GREEN",
   Blue = "BLUE"
 }
-
 ৫. Union এবং Intersection Type উদাহরণ
-
 Union (|): value একাধিক type হতে পারে।
 
 Intersection (&): multiple type একত্রিত করে।
 
 উদাহরণ:
 
+ts
+Copy code
 type A = { name: string };
 type B = { age: number };
 
