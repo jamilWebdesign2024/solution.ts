@@ -2,11 +2,11 @@
 
 ## **১. TypeScript এ `interface` এবং `type` এর মধ্যে পার্থক্য**
 
-TypeScript এ `interface` এবং `type`—দুটোই object-এর কাঠামো বা shape নির্ধারণ করতে ব্যবহৃত হয়। তবে এদের ব্যবহারের উদ্দেশ্য ও শক্তি আলাদা।
+TypeScript এ `interface` এবং `type`—দুটোই object বা class-এর structure নির্ধারণ করতে ব্যবহৃত হয়। তবে এদের ক্ষমতা ও ব্যবহার ক্ষেত্র ভিন্ন।  
 
 ### **Interface**
 
-`interface` মূলত object, class এবং structure সংজ্ঞায়ন করতে ব্যবহৃত হয়। ভবিষ্যতে এটিকে সহজেই **extend** করা বা **implement** করা যায়।
+`interface` মূলত object বা class-এর shape define করতে ব্যবহৃত হয়। সহজেই এটিকে **extend** বা অন্য class/Interface দ্বারা **implement** করা যায়।  
 
 ```ts
 interface User {
@@ -17,7 +17,7 @@ interface User {
 
 ### **Type**
 
-`type` আরও flexible। এটি object ছাড়াও—
+`type` আরও flexible। এটি object ছাড়া—
 
 * union
 * intersection
@@ -38,6 +38,8 @@ type ID = string | number;
 | Union support  | নেই                    | আছে                              |
 | Merge করা      | সম্ভব                  | সম্ভব নয়                         |
 | প্রধান ব্যবহার | object/class structure | flexible type design             |
+
+
 
 ### **উপসংহার**
 
